@@ -1,0 +1,160 @@
+[
+  {
+    "nivel": "iniciante",
+    "frequencia": 2,
+    "objetivo": "forca",
+    "divisoes": [
+      "S/B, B/D"
+    ]
+  },
+  {
+    "nivel": "iniciante",
+    "frequencia": 3,
+    "objetivo": "forca",
+    "divisoes": [
+      "S/B, B/D, S/B"
+    ]
+  },
+  {
+    "nivel": "iniciante",
+    "frequencia": 4,
+    "objetivo": "forca",
+    "divisoes": [
+      "S, B, D, B"
+    ]
+  },
+  {
+    "nivel": "intermediario",
+    "frequencia": 3,
+    "objetivo": "forca",
+    "divisoes": [
+      "S/B, B/D, S/B"
+    ]
+  },
+  {
+    "nivel": "intermediario",
+    "frequencia": 4,
+    "objetivo": "forca",
+    "divisoes": [
+      "S, B, D, B"
+    ]
+  },
+  {
+    "nivel": "intermediario",
+    "frequencia": 5,
+    "objetivo": "forca",
+    "divisoes": [
+      "S, B, D, B, Accessories"
+    ]
+  },
+  {
+    "nivel": "avancado",
+    "frequencia": 4,
+    "objetivo": "forca",
+    "divisoes": [
+      "S, B, D, B"
+    ]
+  },
+  {
+    "nivel": "avancado",
+    "frequencia": 5,
+    "objetivo": "forca",
+    "divisoes": [
+      "S, B, D, B, Accessories"
+    ]
+  },
+  {
+    "nivel": "avancado",
+    "frequencia": 6,
+    "objetivo": "forca",
+    "divisoes": [
+      "S, B, D, B, Accessories, Accessories"
+    ]
+  },
+  {
+    "nivel": "iniciante",
+    "frequencia": 2,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body"
+    ]
+  },
+  {
+    "nivel": "iniciante",
+    "frequencia": 3,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body",
+      "Lower, Upper, Full Body"
+    ]
+  },
+  {
+    "nivel": "iniciante",
+    "frequencia": 4,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body, Full Body",
+      "Legs, Push, Pull, Full Body",
+      "Lower, Upper, Lower, Upper"
+    ]
+  },
+  {
+    "nivel": "intermediario",
+    "frequencia": 3,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body",
+      "Lower, Upper, Full Body"
+    ]
+  },
+  {
+    "nivel": "intermediario",
+    "frequencia": 4,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body, Full Body",
+      "Legs, Push, Pull, Full Body",
+      "Lower, Upper, Lower, Upper"
+    ]
+  },
+  {
+    "nivel": "intermediario",
+    "frequencia": 5,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body, Full Body, Full Body",
+      "Full Body, Full Body, Full Body, Full Body, Lower",
+      "Legs, Push, Pull, Lower, Upper"
+    ]
+  },
+  {
+    "nivel": "avancado",
+    "frequencia": 4,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body, Full Body",
+      "Legs, Push, Pull, Full Body",
+      "Lower, Upper, Lower, Upper"
+    ]
+  },
+  {
+    "nivel": "avancado",
+    "frequencia": 5,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body, Full Body, Full Body",
+      "Full Body, Full Body, Full Body, Full Body, Lower",
+      "Legs, Push, Pull, Lower, Upper"
+    ]
+  },
+  {
+    "nivel": "avancado",
+    "frequencia": 6,
+    "objetivo": "hipertrofia",
+    "divisoes": [
+      "Full Body, Full Body, Full Body, Full Body, Full Body, Full Body",
+      "Legs, Push, Pull, Legs, Push, Pull",
+      "Lower, Upper, Lower, Upper, Lower, Upper"
+    ]
+  }
+]

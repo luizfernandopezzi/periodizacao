@@ -1,0 +1,245 @@
+'use client'
+
+import React from 'react';
+import { Mesocycle } from '@/lib/periodizationLogic';
+import { 
+  calcularVolumePorSemana, 
+  calcularVolumePorGrupoMuscular, 
+  estimarIntensidadePorSemana,
+  calcularDistribuicaoVolumeMesociclo
+} from '@/lib/chartUtils';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { 
+  Chart as ChartJS, 
+  CategoryScale, 
+  LinearScale, 
+  BarElement, 
+  Title, 
+  Tooltip, 
+  Legend, 
+  LineElement,
+  PointElement,
+  ArcElement
+} from 'chart.js';
+import { Bar, Line, Pie } from 'react-chartjs-2';
+
+// Registrar componentes do Chart.js
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+interface PeriodizationChartsProps {
+  mesociclo: Mesocycle;
+}
+
+export function PeriodizationCharts({ mesociclo }: PeriodizationChartsProps) {
+  // Gerar dados para os gráficos
+  const volumeData = calcularVolumePorSemana(mesociclo);
+  const volumeByMuscleData = calcularVolumePorGrupoMuscular(mesociclo);
+  const intensityData = estimarIntensidadePorSemana(mesociclo);
+  const volumeDistribution = calcularDistribuicaoVolumeMesociclo(mesociclo);
+
+  // Configurações para o gráfico de distribuição de volume
+  const pieData = {
+    labels: volumeDistribution.labels,
+    datasets: [
+      {
+        data: volumeDistribution.data,
+        backgroundColor: volumeDistribution.labels.map(label => {
+          const colors = {
+            'Glúteos': 'rgba(255, 99, 132, 0.7)',
+            'Quadríceps': 'rgba(54, 162, 235, 0.7)',
+            'Posteriores': 'rgba(255, 206, 86, 0.7)',
+            'Costas': 'rgba(75, 192, 192, 0.7)',
+            'Peito': 'rgba(153, 102, 255, 0.7)',
+            'Ombros': 'rgba(255, 159, 64, 0.7)',
+            'Bíceps': 'rgba(199, 199, 199, 0.7)',
+            'Tríceps': 'rgba(83, 102, 255, 0.7)',
+            'Core': 'rgba(255, 99, 255, 0.7)',
+            'Panturrilhas': 'rgba(159, 159, 64, 0.7)',
+            'Outros': 'rgba(128, 128, 128, 0.7)'
+          };
+          return colors[label] || 'rgba(128, 128, 128, 0.7)';
+        }),
+        borderColor: volumeDistribution.labels.map(label => {
+          const colors = {
+            'Glúteos': 'rgba(255, 99, 132, 1)',
+            'Quadríceps': 'rgba(54, 162, 235, 1)',
+            'Posteriores': 'rgba(255, 206, 86, 1)',
+            'Costas': 'rgba(75, 192, 192, 1)',
+            'Peito': 'rgba(153, 102, 255, 1)',
+            'Ombros': 'rgba(255, 159, 64, 1)',
+            'Bíceps': 'rgba(199, 199, 199, 1)',
+            'Tríceps': 'rgba(83, 102, 255, 1)',
+            'Core': 'rgba(255, 99, 255, 1)',
+            'Panturrilhas': 'rgba(159, 159, 64, 1)',
+            'Outros': 'rgba(128, 128, 128, 1)'
+          };
+          return colors[label] || 'rgba(128, 128, 128, 1)';
+        }),
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Opções para os gráficos
+  const barOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return `${context.dataset.label}: ${context.parsed.y} séries`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Número de Séries',
+          font: {
+            size: 14
+          }
+        }
+      }
+    }
+  };
+
+  const lineOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return `${context.dataset.label}: ${context.parsed.y}%`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 60,
+        max: 90,
+        title: {
+          display: true,
+          text: 'Intensidade (% 1RM estimado)',
+          font: {
+            size: 14
+          }
+        }
+      }
+    }
+  };
+
+  const pieOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right' as const,
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const total = context.dataset.data.reduce((a, b) => (a as number) + (b as number), 0);
+            const percentage = Math.round(((context.parsed as number) / (total as number)) * 100);
+            return `${context.label}: ${context.parsed} séries (${percentage}%)`;
+          }
+        }
+      }
+    }
+  };
+
+  return (
+    <Card className="w-full mt-8">
+      <CardHeader>
+        <CardTitle className="text-xl font-bold text-center text-primary">Visualização da Periodização</CardTitle>
+        <CardDescription className="text-center text-muted-foreground">
+          Gráficos representando a estratégia de periodização do mesociclo {mesociclo.numero}: {mesociclo.focoPrincipal}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="volume" className="w-full">
+          <TabsList className="grid grid-cols-4 mb-4">
+            <TabsTrigger value="volume">Volume Semanal</TabsTrigger>
+            <TabsTrigger value="intensity">Intensidade</TabsTrigger>
+            <TabsTrigger value="muscle-groups">Grupos Musculares</TabsTrigger>
+            <TabsTrigger value="distribution">Distribuição</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="volume" className="space-y-4">
+            <div className="h-80">
+              <Bar data={volumeData} options={barOptions} />
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Este gráfico mostra o volume total de treinamento (número de séries) por semana ao longo do mesociclo, 
+              permitindo visualizar a progressão ou ondulação do volume conforme a estratégia de periodização adotada.
+            </p>
+          </TabsContent>
+          
+          <TabsContent value="intensity" className="space-y-4">
+            <div className="h-80">
+              <Line data={intensityData} options={lineOptions} />
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Este gráfico mostra a intensidade média estimada (% de 1RM) por semana, baseada nas faixas de repetições 
+              e indicações de RPE/carga dos exercícios. Permite visualizar como a intensidade varia ao longo do mesociclo.
+            </p>
+          </TabsContent>
+          
+          <TabsContent value="muscle-groups" className="space-y-4">
+            <div className="h-80">
+              <Bar data={volumeByMuscleData} options={barOptions} />
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Este gráfico mostra o volume de treinamento (número de séries) por grupo muscular em cada semana, 
+              permitindo visualizar o foco e a distribuição do trabalho entre os diferentes grupos musculares.
+            </p>
+          </TabsContent>
+          
+          <TabsContent value="distribution" className="space-y-4">
+            <div className="h-80">
+              <Pie data={pieData} options={pieOptions} />
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Este gráfico mostra a distribuição percentual do volume total de treinamento entre os diferentes 
+              grupos musculares ao longo de todo o mesociclo, destacando as prioridades do plano.
+            </p>
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
+  );
+}
