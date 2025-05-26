@@ -1,0 +1,226 @@
+/* Estilos adicionais para periodização avançada */
+
+/* Modal para detalhes de periodização */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: var(--bg-secondary);
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+  color: var(--text-secondary);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+  color: var(--accent-primary);
+}
+
+/* Tabela de detalhes */
+.detalhes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.detalhes-table th, .detalhes-table td {
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  text-align: center;
+}
+
+.detalhes-table th {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-primary);
+}
+
+.detalhes-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.detalhes-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Seletor de modelo de periodização */
+.modelo-periodizacao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.modelo-btn {
+  background: var(--bg-tertiary);
+  border: none;
+  color: var(--text-primary);
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex: 1;
+  min-width: 150px;
+  text-align: center;
+}
+
+.modelo-btn.active {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+}
+
+.modelo-btn:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-2px);
+}
+
+/* Cores para diferentes blocos */
+tr.bloco-acumulacao {
+  background-color: rgba(75, 192, 192, 0.2) !important;
+}
+
+tr.bloco-acumulacao:hover {
+  background-color: rgba(75, 192, 192, 0.3) !important;
+}
+
+tr.bloco-transmutacao {
+  background-color: rgba(153, 102, 255, 0.2) !important;
+}
+
+tr.bloco-transmutacao:hover {
+  background-color: rgba(153, 102, 255, 0.3) !important;
+}
+
+tr.bloco-realizacao {
+  background-color: rgba(255, 159, 64, 0.2) !important;
+}
+
+tr.bloco-realizacao:hover {
+  background-color: rgba(255, 159, 64, 0.3) !important;
+}
+
+/* Tooltip para tabela de progressão */
+.progressao-tooltip {
+  position: absolute;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  z-index: 100;
+  max-width: 300px;
+  display: none;
+}
+
+#progressao-body tr {
+  cursor: pointer;
+  position: relative;
+}
+
+#progressao-body tr:hover .progressao-tooltip {
+  display: block;
+}
+
+/* Gráfico de ondulação diária */
+.ondulacao-chart-container {
+  margin-top: 20px;
+  padding: 15px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Legenda para blocos conjugados */
+.blocos-legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.legenda-item {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.legenda-cor {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.legenda-acumulacao {
+  background-color: rgba(75, 192, 192, 0.8);
+}
+
+.legenda-transmutacao {
+  background-color: rgba(153, 102, 255, 0.8);
+}
+
+.legenda-realizacao {
+  background-color: rgba(255, 159, 64, 0.8);
+}
+
+.legenda-deload {
+  background-color: rgba(255, 206, 86, 0.8);
+}
+
+.legenda-pico {
+  background-color: rgba(255, 99, 132, 0.8);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    margin: 5% auto;
+    padding: 15px;
+  }
+  
+  .detalhes-table th, .detalhes-table td {
+    padding: 8px 5px;
+    font-size: 0.9em;
+  }
+  
+  .modelo-periodizacao {
+    flex-direction: column;
+  }
+  
+  .modelo-btn {
+    width: 100%;
+  }
+}
